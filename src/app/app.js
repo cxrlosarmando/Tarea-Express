@@ -1,8 +1,12 @@
 const express = require('express')
-const router = require('./router/user.router')
+const router = require('../routers/user.router.js')
 const app = express()
+const morgan = require('morgan');
 
-app.use("/api/v1", router);
+
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(router);
 
 
 

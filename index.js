@@ -1,10 +1,14 @@
-const app = require("./src/app/app")
-const port = 3000
+const app = require("./src/app/app");
+const dbConnection = require("./src/Db/dbconect");
+const port = 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hola Mundo')
-})
+dbConnection()
+    .then(() => {
+        app.listen(port, () => {
 
-app.listen(port, () => {
-    console.log(`La aplicación está corriendoen --->>>> http://localhost:${port}`)
-})
+            console.log(`La aplicación está corriendoen --->>>> http://localhost:${port}`);
+        });
+    })
+    .catch((error) => {
+        console.error('Error al conectar a la base de datos:', error.message);
+    });
